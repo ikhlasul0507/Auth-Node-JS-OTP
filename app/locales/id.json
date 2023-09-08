@@ -1,0 +1,9 @@
+{
+	"GET_SUCCESS": "Pengguna berhasil mendapatkan data!",
+	"GET_FAILED": "Pengguna gagal mendapatkan data!",
+	"POST_SUCCESS": "Pengguna berhasil simpan data!",
+	"NO_TOKEN": "Tidak ada token yang disediakan !",
+	"AUTORIZE": "Tidak sah!",
+	"REGIS_SUCCESS": "Pengguna berhasil didaftarkan!",
+	"You have been Logged Out !": "You have been Logged Out !"
+}

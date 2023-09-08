@@ -1,0 +1,8 @@
+{
+	"GET_SUCCESS": "User was get data successfully!",
+	"GET_FAILED": "User was get data failed !",
+	"POST_SUCCESS": "User was post data successfully!",
+	"NO_TOKEN" : "No token provided!",
+	"AUTORIZE" : "Unauthorized!",
+	"REGIS_SUCCESS" : "User was registered successfully!"
+}

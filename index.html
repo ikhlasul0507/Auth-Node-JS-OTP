@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+  
+<head>
+    <title>Chat app using Socket IO and Node JS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<style>
+  #form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 25%; right: 0; display: flex; height: 5rem; box-sizing: border-box; backdrop-filter: blur(10px); }
+  #textarea { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; width: 500vh;height: 4rem;}
+      #textarea:focus { outline: none; }
+      #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
+  /* Create two unequal columns that floats next to each other */
+.column {
+  float: left;
+  padding: 10px; /* Should be removed. Only for demonstration */
+}
+
+.left {
+  width: 25%;
+  background: rgba(0, 0, 0, 0.15);
+  height: 590px;
+  overflow-y: scroll;
+}
+
+.left .contact{
+  border-bottom: 1px solid black;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+
+.left .contact .img{
+  height: 17%;
+  width: 17%;
+  border-radius: 50%;
+}
+
+.left .contact .img img{
+  border-radius: 50%;
+}
+
+.left .contact .chat{
+  font-size: 14px;
+  display: inline-block;
+  width: 250px;
+  justify-content: left;
+}
+.left .contact .chat p{
+  font-size: 14px;
+  width: fit-content;
+}
+
+.left .contact .set h1{
+  font-size: 12px;
+}
+
+.left .contact .set .notif{
+  font-size: 14px;
+  width: 20px;
+  height: 20px;
+  background-color: rgb(9, 137, 35);
+  border-radius: 20px;
+  padding-left: 5px;
+  color: white;
+  margin-left: 8px;
+  margin-top: 5px;
+}
+.right {
+  width: 75%;
+  height: 500px;
+  overflow-y: scroll;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+<body>
+   
+    <div style=" display: flex;
+    justify-content: space-between; padding: 10px;">
+    <div style="display: flex;">
+      <input class="border border-gray-400 
+                rounded-md " 
+          type="text" 
+          placeholder="Name" 
+          id="myname" style="width: 100px; height: 20px;font-size: small;">
+          <div style="width: 20px;height: 20px;background-color: rgb(12, 249, 59);border-radius: 20px; margin-left: 20px;">
+          </div>
+          <p style="font-size: 10px; margin-left: 5px;margin-top: 2px;">Online</p>
+        </div>
+          <h1 class="font-bold text-green-500 
+          text-3xl text-center">
+     Haga JEK
+ </h1>
+        <h2 class="font-semibold text-xl 
+                   text-center" 
+            id="logo">
+              Chat App using Socket io
+          </h2>
+    </div>
+    <hr>
+    
+<div class="row">
+  <div class="column left">
+    <div class="contact">
+      <div class="img">
+        <img src="https://cdn.icon-icons.com/icons2/2859/PNG/512/avatar_face_man_boy_profile_smiley_happy_people_icon_181659.png" alt="">
+      </div>
+      <div class="chat">
+        <h2>Bayu Seno</h2>
+        <p>Chat App using Socket io Some text......</p>
+      </div>
+      <div class="set">
+        <h1>20:20 </h1>
+        <div class="notif">
+          9
+        </div>
+      </div>
+    </div>
+
+    <div class="contact">
+      <div class="img">
+        <img src="https://cdn-icons-png.flaticon.com/512/3100/3100791.png" alt="">
+      </div>
+      <div class="chat">
+        <h2>Zullin</h2>
+        <p>Iya </p>
+      </div>
+      <div class="set">
+        <h1>20:20 </h1>
+        <div class="notif">
+          9
+        </div>
+      </div>
+    </div>
+
+    <div class="contact">
+      <div class="img">
+        <img src="https://cdn.icon-icons.com/icons2/2859/PNG/512/avatar_face_man_boy_profile_smiley_happy_people_icon_181659.png" alt="">
+      </div>
+      <div class="chat">
+        <h2>Kristianto</h2>
+        <p>Chat App using Socket io Some text......</p>
+      </div>
+      <div class="set">
+        <h1>20:20 </h1>
+        <div class="notif">
+          9
+        </div>
+      </div>
+    </div>
+    
+    <div class="contact">
+      <div class="img">
+        <img src="https://cdn.icon-icons.com/icons2/2859/PNG/512/avatar_face_man_boy_profile_smiley_happy_people_icon_181659.png" alt="">
+      </div>
+      <div class="chat">
+        <h2>Agung Ganteng</h2>
+        <p>Chat App using Socket io Some text......</p>
+      </div>
+      <div class="set">
+        <h1>20:20 </h1>
+        <div class="notif">
+          9
+        </div>
+      </div>
+    </div>
+
+    <div class="contact">
+      <div class="img">
+        <img src="https://cdn.icon-icons.com/icons2/2859/PNG/512/avatar_face_man_boy_profile_smiley_happy_people_icon_181659.png" alt="">
+      </div>
+      <div class="chat">
+        <h2>Aldo Cucu Oma</h2>
+        <p>Chat App using Socket io Some text......</p>
+      </div>
+      <div class="set">
+        <h1>20:20 </h1>
+        <div class="notif">
+          9
+        </div>
+      </div>
+    </div>
+
+    <div class="contact">
+      <div class="img">
+        <img src="https://cdn.icon-icons.com/icons2/2859/PNG/512/avatar_face_man_boy_profile_smiley_happy_people_icon_181659.png" alt="">
+      </div>
+      <div class="chat">
+        <h2>Aldo Cucu Oma</h2>
+        <p>Chat App using Socket io Some text......</p>
+      </div>
+      <div class="set">
+        <h1>20:20 </h1>
+        <div class="notif">
+          9
+        </div>
+      </div>
+    </div>
+    <div class="contact">
+      <div class="img">
+        <img src="https://cdn.icon-icons.com/icons2/2859/PNG/512/avatar_face_man_boy_profile_smiley_happy_people_icon_181659.png" alt="">
+      </div>
+      <div class="chat">
+        <h2>Aldo Cucu Oma</h2>
+        <p>Chat App using Socket io Some text......</p>
+      </div>
+      <div class="set">
+        <h1>20:20 </h1>
+        <div class="notif">
+          9
+        </div>
+      </div>
+    </div>
+    <div class="contact">
+      <div class="img">
+        <img src="https://cdn.icon-icons.com/icons2/2859/PNG/512/avatar_face_man_boy_profile_smiley_happy_people_icon_181659.png" alt="">
+      </div>
+      <div class="chat">
+        <h2>Aldo Cucu Oma</h2>
+        <p>Chat App using Socket io Some text......</p>
+      </div>
+      <div class="set">
+        <h1>20:20 </h1>
+        <div class="notif">
+          9
+        </div>
+      </div>
+    </div>
+    <div class="contact">
+      <div class="img">
+        <img src="https://cdn.icon-icons.com/icons2/2859/PNG/512/avatar_face_man_boy_profile_smiley_happy_people_icon_181659.png" alt="">
+      </div>
+      <div class="chat">
+        <h2>Aldo Cucu Oma</h2>
+        <p>Chat App using Socket io Some text......</p>
+      </div>
+      <div class="set">
+        <h1>20:20 </h1>
+        <div class="notif">
+          9
+        </div>
+      </div>
+    </div>
+    <div class="contact">
+      <div class="img">
+        <img src="https://cdn.icon-icons.com/icons2/2859/PNG/512/avatar_face_man_boy_profile_smiley_happy_people_icon_181659.png" alt="">
+      </div>
+      <div class="chat">
+        <h2>Aldo Cucu Oma</h2>
+        <p>Chat App using Socket io Some text......</p>
+      </div>
+      <div class="set">
+        <h1>20:20 </h1>
+        <div class="notif">
+          9
+        </div>
+      </div>
+    </div>
+
+    <div class="contact">
+      <div class="img">
+        <img src="https://cdn.icon-icons.com/icons2/2859/PNG/512/avatar_face_man_boy_profile_smiley_happy_people_icon_181659.png" alt="">
+      </div>
+      <div class="chat">
+        <h2>Aldo Cucu Oma</h2>
+        <p>Chat App using Socket io Some text......</p>
+      </div>
+      <div class="set">
+        <h1>20:20 </h1>
+        <div class="notif">
+          9
+        </div>
+      </div>
+    </div>
+    <div class="contact">
+      <div class="img">
+        <img src="https://cdn.icon-icons.com/icons2/2859/PNG/512/avatar_face_man_boy_profile_smiley_happy_people_icon_181659.png" alt="">
+      </div>
+      <div class="chat">
+        <h2>Aldo Cucu Oma</h2>
+        <p>Chat App using Socket io Some text......</p>
+      </div>
+      <div class="set">
+        <h1>20:20 </h1>
+        <div class="notif">
+          9
+        </div>
+      </div>
+    </div>
+    <div class="contact">
+      <div class="img">
+        <img src="https://cdn.icon-icons.com/icons2/2859/PNG/512/avatar_face_man_boy_profile_smiley_happy_people_icon_181659.png" alt="">
+      </div>
+      <div class="chat">
+        <h2>Aldo Cucu Oma</h2>
+        <p>Chat App using Socket io Some text......</p>
+      </div>
+      <div class="set">
+        <h1>20:20 </h1>
+        <div class="notif">
+          9
+        </div>
+      </div>
+    </div>  
+
+  </div>
+  <div class="column right">
+    <div style="word-wrap: break-word;" id="isiMSG">
+      <table id="myTable" style="border: 1px solid black; width: 100%;">
+        <tbody>
+        </tbody>
+     </table>
+    <div class="mt-5" style="width: 30%;margin-left: 10px;"
+    id="messageArea">
+    
+  </div>
+</div>
+  </div>
+</div>
+
+    <form class="
+                 items-center mt-5" 
+          id="form">
+       
+        <textarea class="border border-gray-400 
+                      rounded-md  " 
+               type="text" 
+               placeholder="Message" 
+               id="message" style="width: 100%;height: 4rem; padding-left: 10px; font-size: small;"></textarea>
+        <button class="btn btn-primary" style="height: 4rem;">
+              Send
+          </button>
+    </form>
+   
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    let socket = io();
+  
+    let form = document.getElementById('form');
+    let myname = document.getElementById('myname');
+    let message = document.getElementById('message');
+    let messageArea = document.getElementById("messageArea");
+    let isiMSG = document.getElementById("isiMSG");
+    let div = document.createElement("div");
+
+    let table = document.getElementById("myTable");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+        if (message.value) {
+            socket.emit('name', myname.value);
+            socket.emit('message', message.value);
+            localStorage.setItem(myname.value, true);
+            message.value = "";
+        }
+    });
+
+  
+    socket.on("name", (username) => {
+        let name = document.createElement("p");
+        name.style.backgroundColor = "#ccd3e6";
+        name.style.width = "100%";
+        name.style.textAlign = "left";
+        name.style.paddingLeft = "10px"; 
+        name.style.marginTop = "10px"; 
+        name.style.borderTopLeftRadius  = "15px";
+        name.style.borderTopRightRadius = "15px";
+        name.style.color = "black";
+        name.textContent = username + ":";
+        messageArea.appendChild(name);
+    });
+  
+    socket.on("message", (chat) => {
+        let chatContent = document.createElement("p");
+        chatContent.textContent = chat;
+        chatContent.style.textAlign = "right";
+        chatContent.style.maxWidth = "100%";
+        chatContent.style.paddingRight = "10px"; 
+        chatContent.style.fontSize = "small"; 
+        chatContent.style.borderBottomLeftRadius = "15px";
+        chatContent.style.borderBottomRightRadius = "15px";
+        chatContent.style.border = "1px solid #4272f5";
+        messageArea.appendChild(chatContent);
+    });
+</script>
+  
+</html>
